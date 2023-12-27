@@ -805,6 +805,8 @@ app.get('/getNews', async (req, res)=>{
     if(now-timeout>=300000) {
         timeout = now;
         res.send("ok");
+        newsObj = {"news":[]}
+        mainData = {"status": "ok","articles":[]}
         await loadWorld();
     }
     else {
