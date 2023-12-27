@@ -799,13 +799,13 @@ app.listen(4000, () => {
     console.log('listening on port 4000');
 })
 
-app.get('/getNews', (req, res)=>{
+app.get('/getNews', async (req, res)=>{
     let now = Date.now();
     console.log(now-timeout);
     if(now-timeout>=300000) {
         timeout = now;
         res.send("ok");
-        loadWorld();
+        await loadWorld();
     }
     else {
     res.send("using cached data");
