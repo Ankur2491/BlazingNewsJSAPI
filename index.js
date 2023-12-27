@@ -790,6 +790,7 @@ async function loadOffbeat() {
 
 async function saveToDb() {
     console.log("saving to DB");
+    newsObj['lastTime'] = Date.now();
     await client.connect()
     await client.set('all_news', JSON.stringify(newsObj));
     await client.disconnect()
@@ -800,6 +801,10 @@ app.listen(4000, () => {
 })
 
 app.get('/getNews', async (req, res)=>{
+    await client.connect();
+    let newsO = JSON.parse(await client.get('all_news'));
+    await client.disconnect();
+    let timeout = newsO['lastTime']
     let now = Date.now();
     console.log(now-timeout);
     if(now-timeout>=300000) {
