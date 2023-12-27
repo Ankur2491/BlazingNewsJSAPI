@@ -2,8 +2,8 @@ const cheerio =  require('cheerio');
 const axios = require('axios')
 const redis = require('redis');
 var express = require('express');
+var cors = require('cors');
 var app = express();
-
 // async function loadHindu() {
 //     var client = redis.createClient({
 //         socket:{
@@ -33,6 +33,8 @@ var app = express();
 //     await client.disconnect()
 // }
 // loadHindu();
+app.use(cors());
+let timeout = Date.now();
 newsObj = {"news":[]}
 mainData = {"status": "ok","articles":[]}
 var client = redis.createClient({
@@ -792,9 +794,16 @@ async function saveToDb() {
     await client.set('all_news', JSON.stringify(newsObj));
     await client.disconnect()
 }
-var server = app.listen(4000, () => {
+
+app.listen(4000, () => {
     console.log('listening on port 4000');
 })
-setInterval(()=>{
-    loadWorld();
-},300000)
+
+app.get('/getNews', (req, res)=>{
+    let now = Date.now();
+    console.log(now-timeout);
+    if(now-timeout>=300000) {
+        timeout = now;
+        loadWorld();
+    }
+});
