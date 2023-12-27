@@ -1,7 +1,8 @@
 const cheerio =  require('cheerio');
 const axios = require('axios')
 const redis = require('redis');
-
+var express = require('express');
+var app = express();
 
 // async function loadHindu() {
 //     var client = redis.createClient({
@@ -791,7 +792,9 @@ async function saveToDb() {
     await client.set('all_news', JSON.stringify(newsObj));
     await client.disconnect()
 }
-
+var server = app.listen(4000, () => {
+    console.log('listening on port 4000');
+})
 setInterval(()=>{
     loadWorld();
 },300000)
