@@ -37,6 +37,7 @@ app.use(cors());
 let timeout = Date.now();
 newsObj = {"news":[]}
 mainData = {"status": "ok","articles":[]}
+fetchingData = false;
 var client = redis.createClient({
     socket:{
         host:"redis-11422.c62.us-east-1-4.ec2.cloud.redislabs.com",
@@ -801,6 +802,8 @@ app.listen(4000, () => {
 })
 
 app.get('/getNews', async (req, res)=>{
+    if(!fetchingData){
+    fetchingData = true;
     await client.connect();
     let newsO = JSON.parse(await client.get('all_news'));
     await client.disconnect();
@@ -813,6 +816,11 @@ app.get('/getNews', async (req, res)=>{
         newsObj = {"news":[]}
         mainData = {"status": "ok","articles":[]}
         await loadWorld();
+        fetchingData = false;
+    }
+    else {
+    res.send("using cached data");
+    }
     }
     else {
     res.send("using cached data");
