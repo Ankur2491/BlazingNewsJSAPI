@@ -804,6 +804,10 @@ app.get('/getNews', (req, res)=>{
     console.log(now-timeout);
     if(now-timeout>=300000) {
         timeout = now;
+        res.send("ok");
         loadWorld();
+    }
+    else {
+    res.send("using cached data");
     }
 });
