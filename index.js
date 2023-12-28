@@ -802,6 +802,8 @@ app.listen(4000, () => {
 })
 
 app.get('/getNews', async (req, res)=>{
+   newsObj = {"news":[]}
+   mainData = {"status": "ok","articles":[]}
    await loadWorld();
-    res.send("ok");
+   res.send("ok");
 });
