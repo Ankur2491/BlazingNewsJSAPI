@@ -802,27 +802,6 @@ app.listen(4000, () => {
 })
 
 app.get('/getNews', async (req, res)=>{
-    if(!fetchingData){
-    fetchingData = true;
-    await client.connect();
-    let newsO = JSON.parse(await client.get('all_news'));
-    await client.disconnect();
-    fetchingData = false;
-    let timeout = newsO['lastTime']
-    let now = Date.now();
-    console.log(now-timeout);
-    if(now-timeout>=300000) {
-        timeout = now;
-        res.send("ok");
-        newsObj = {"news":[]}
-        mainData = {"status": "ok","articles":[]}
-        await loadWorld();
-    }
-    else {
-    res.send("using cached data");
-    }
-    }
-    else {
-    res.send("using cached data");
-    }
+   await loadWorld();
+    res.send("ok");
 });
