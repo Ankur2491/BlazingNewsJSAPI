@@ -55,7 +55,7 @@ async function loadWorld() {
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
         const link = $(element).children('link').text();
-        let obj = {'source': 'BBC', 'title': title+'(source:BBC)', 'urlToImage': `resolve`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
+        let obj = {'source': 'BBC', 'title': title+'(source:BBC)', 'urlToImage': `https://news.bbcimg.co.uk/nol/shared/img/bbc_news_120x60.gif`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
     
@@ -68,7 +68,7 @@ async function loadWorld() {
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
         const link = $(element).children('link').text();
-        let obj = {'source': 'NY Times', 'title': title+'(source:NY Times)', 'urlToImage': `resolve`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
+        let obj = {'source': 'NY Times', 'title': title+'(source:NY Times)', 'urlToImage': `https://static01.nyt.com/images/misc/NYT_logo_rss_250x40.png`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
 
@@ -80,7 +80,7 @@ async function loadWorld() {
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
         const link = $(element).children('link').text();
-        let obj = {'source': 'Al Jazeera', 'title': title+'(source:Al Jazeera)', 'urlToImage': `resolve`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
+        let obj = {'source': 'Al Jazeera', 'title': title+'(source:Al Jazeera)', 'urlToImage': `https://www.aljazeera.com/images/logo_aje.png`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
     
@@ -168,7 +168,7 @@ async function loadIndia() {
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubdate').text();
         const link = $(element).children('link').text();
-        let obj = {'source': 'ZeeNews', 'title': title+'(source:ZeeNews)', 'urlToImage': `resolve`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
+        let obj = {'source': 'ZeeNews', 'title': title+'(source:ZeeNews)', 'urlToImage': `https://english.cdn.zeenews.com/images/logo/zeenewslogo_nav.png`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
 
@@ -197,7 +197,7 @@ async function loadIndia() {
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
         const link = $(element).children('link').text();
-        let obj = {'source': 'TheHindu', 'title': title+'(source:TheHindu)', 'urlToImage': `resolve`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
+        let obj = {'source': 'TheHindu', 'title': title+'(source:TheHindu)', 'urlToImage': `https://www.thehindu.com/theme/images/th-online/logo.png`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
 
@@ -329,7 +329,7 @@ async function loadBusiness() {
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
         const link = $(element).children('link').text();
-        let obj = {'source': 'ZeeBusiness', 'title': title+'(source:ZeeBusiness)', 'urlToImage': `resolve`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
+        let obj = {'source': 'ZeeBusiness', 'title': title+'(source:ZeeBusiness)', 'urlToImage': `https://cdn.zeebiz.com/html/images/zee-business.png`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
 
@@ -410,7 +410,7 @@ async function loadEntertainment() {
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
         const link = $(element).children('link').text();
-        let obj = {'source': 'ZeeNews', 'title': title+'(source:ZeeNews)', 'urlToImage': `resolve`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
+        let obj = {'source': 'ZeeNews', 'title': title+'(source:ZeeNews)', 'urlToImage': `https://english.cdn.zeenews.com/images/logo/zeenewslogo_nav.png`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
 
@@ -637,7 +637,7 @@ async function loadTech() {
         const desc = ``
         const publishedAt = $(element).children('published').text();
         const link = $(element).children('id').text();
-        let obj = {'source': 'The Verge', 'title': title+'(source:The Verge)', 'urlToImage': `resolve`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
+        let obj = {'source': 'The Verge', 'title': title+'(source:The Verge)', 'urlToImage': `https://logowik.com/content/uploads/images/the-verge5796.jpg`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
 
@@ -690,7 +690,7 @@ async function loadSport() {
                 publishedAt = $(x).text();
             }
         }
-        let obj = {'source': 'NDTV', 'title': title+'(source:NDTV)', 'urlToImage': `resolve`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
+        let obj = {'source': 'NDTV', 'title': title+'(source:NDTV)', 'urlToImage': `https://logowik.com/content/uploads/images/ndtv9182.logowik.com.webp`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
 
