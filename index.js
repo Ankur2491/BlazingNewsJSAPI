@@ -83,7 +83,7 @@ async function loadWorld() {
         let obj = {'source': 'Al Jazeera', 'title': title+'(source:Al Jazeera)', 'urlToImage': `https://www.aljazeera.com/images/logo_aje.png`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-    
+    try{
     let n18Res = await axios.get(`https://www.news18.com/rss/world.xml`);
     let n18Html = n18Res.data;
     const n18$ = cheerio.load(n18Html, {xmlMode:true});
@@ -102,7 +102,10 @@ async function loadWorld() {
         let obj = {'source': 'News18', 'title': title+'(source:News18)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
 
     let ndRes = await axios.get(`http://feeds.feedburner.com/ndtvnews-world-news`);
     let ndHtml = ndRes.data;
