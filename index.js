@@ -59,7 +59,7 @@ async function loadWorld() {
         list.push(obj);
     })
     
-    
+    try{
     let nyRes = await axios.get(`https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/section/world/rss.xml`);
     let nyHtml = nyRes.data;
     const ny$ = cheerio.load(nyHtml, {xmlMode:true});
@@ -71,7 +71,11 @@ async function loadWorld() {
         let obj = {'source': 'NY Times', 'title': title+'(source:NY Times)', 'urlToImage': `https://static01.nyt.com/images/misc/NYT_logo_rss_250x40.png`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
+    try{
     let alRes = await axios.get(`https://www.aljazeera.com/xml/rss/all.xml`);
     let alHtml = alRes.data;
     const al$ = cheerio.load(alHtml, {xmlMode:true});
@@ -83,6 +87,10 @@ async function loadWorld() {
         let obj = {'source': 'Al Jazeera', 'title': title+'(source:Al Jazeera)', 'urlToImage': `https://www.aljazeera.com/images/logo_aje.png`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
+    }
+    catch(err) {
+        console.error(err);
+    }
     try{
     let n18Res = await axios.get(`https://www.news18.com/rss/world.xml`);
     let n18Html = n18Res.data;
@@ -106,7 +114,7 @@ async function loadWorld() {
     catch(err) {
         console.error(err);
     }
-
+    try {
     let ndRes = await axios.get(`http://feeds.feedburner.com/ndtvnews-world-news`);
     let ndHtml = ndRes.data;
     const nd$ = cheerio.load(ndHtml, {xmlMode:true});
@@ -125,7 +133,10 @@ async function loadWorld() {
         let obj = {'source': 'NDTV', 'title': title+'(source:NDTV)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
 
     list.sort((a,b)=> {
         let d1 = Date.parse(a.publishedAt);
@@ -162,7 +173,7 @@ async function loadIndia() {
         list.push(obj);
     })
 
-
+    try {
     let zeeRes = await axios.get(`https://zeenews.india.com/rss/india-national-news.xml`);
     let zeeHtml = zeeRes.data;
     const zee$ = cheerio.load(zeeHtml, {xmlMode:true});
@@ -174,8 +185,12 @@ async function loadIndia() {
         let obj = {'source': 'ZeeNews', 'title': title+'(source:ZeeNews)', 'urlToImage': `https://english.cdn.zeenews.com/images/logo/zeenewslogo_nav.png`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
+    }
+    catch(err) {
+        console.error(err);
+    }
 
-
+    try {
     let toiRes = await axios.get(`https://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms`);
     let toiHtml = toiRes.data;
     const toi$ = cheerio.load(toiHtml, {xmlMode:true});
@@ -191,7 +206,11 @@ async function loadIndia() {
         let obj = {'source': 'TOI', 'title': title+'(source:TOI)', 'urlToImage': `${imageUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
+    try {
     let hinduRes = await axios.get(`https://www.thehindu.com/news/national/feeder/default.rss`);
     let hinduHtml = hinduRes.data;
     const hindu$ = cheerio.load(hinduHtml, {xmlMode:true});
@@ -203,7 +222,11 @@ async function loadIndia() {
         let obj = {'source': 'TheHindu', 'title': title+'(source:TheHindu)', 'urlToImage': `https://www.thehindu.com/theme/images/th-online/logo.png`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
+    try {
     let dnaRes = await axios.get(`https://www.dnaindia.com/feeds/india.xml`);
     let dnaHtml = dnaRes.data;
     const dna$ = cheerio.load(dnaHtml, {xmlMode:true});
@@ -219,7 +242,11 @@ async function loadIndia() {
         let obj = {'source': 'DNA', 'title': title+'(source:DNA)', 'urlToImage': `${imageUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
+    try {
     let htRes = await axios.get(`https://www.hindustantimes.com/feeds/rss/india-news/rssfeed.xml`);
     let htHtml = htRes.data;
     const ht$ = cheerio.load(htHtml, {xmlMode:true});
@@ -238,8 +265,12 @@ async function loadIndia() {
         let obj = {'source': 'HindustanTimes', 'title': title+'(source:HindustanTimes)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
+    }
+    catch(err) {
+        console.error(err);
+    }
 
-
+    try {
     let news18Res = await axios.get(`https://www.news18.com/commonfeeds/v1/eng/rss/india.xml`);
     let news18Html = news18Res.data;
     const news18$ = cheerio.load(news18Html, {xmlMode:true});
@@ -258,8 +289,11 @@ async function loadIndia() {
         let obj = {'source': 'News18', 'title': title+'(source:News18)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
-
+    }
+    catch(err) {
+        console.error(err);
+    }
+    try {
     let fpRes = await axios.get(`https://www.firstpost.com/rss/india.xml`);
     let fpHtml = fpRes.data;
     const fp$ = cheerio.load(fpHtml, {xmlMode:true});
@@ -278,7 +312,10 @@ async function loadIndia() {
         let obj = {'source': 'FirstPost', 'title': title+'(source:FirstPost)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
     list.sort((a,b)=> {
         let d1 = Date.parse(a.publishedAt);
         let d2 = Date.parse(b.publishedAt);
@@ -310,7 +347,7 @@ async function loadBusiness() {
         let obj = {'source': 'BusinessLine', 'title': title+'(source:BusinessLine)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    try{
     let etRes = await axios.get(`https://cfo.economictimes.indiatimes.com/rss/topstories`);
     let etHtml = etRes.data;
     const et$ = cheerio.load(etHtml, {xmlMode:true});
@@ -323,7 +360,11 @@ async function loadBusiness() {
         let obj = {'source': 'ET', 'title': title+'(source:ET)', 'urlToImage': `${imageUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
+    try {
     let zeeRes = await axios.get(`https://www.zeebiz.com/india.xml`);
     let zeeHtml = zeeRes.data;
     const zee$ = cheerio.load(zeeHtml, {xmlMode:true});
@@ -335,7 +376,10 @@ async function loadBusiness() {
         let obj = {'source': 'ZeeBusiness', 'title': title+'(source:ZeeBusiness)', 'urlToImage': `https://cdn.zeebiz.com/html/images/zee-business.png`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
 
     list.sort((a,b)=> {
         let d1 = Date.parse(a.publishedAt);
@@ -369,7 +413,7 @@ async function loadEntertainment() {
         let obj = {'source': 'EntertainmentTonight', 'title': title+'(source:EntertainmentTonight)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    try {
     let toiRes = await axios.get(`https://timesofindia.indiatimes.com/rssfeeds/1081479906.cms`);
     let toiHtml = toiRes.data;
     const toi$ = cheerio.load(toiHtml, {xmlMode:true});
@@ -385,7 +429,11 @@ async function loadEntertainment() {
         let obj = {'source': 'TOI', 'title': title+'(source:TOI)', 'urlToImage': `${imageUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
+    try {
     let bhRes = await axios.get(`https://www.bollywoodhungama.com/rss/news.xml`);
     let bhHtml = bhRes.data;
     const bh$ = cheerio.load(bhHtml, {xmlMode:true});
@@ -404,7 +452,11 @@ async function loadEntertainment() {
         let obj = {'source': 'BollywoodHungama', 'title': title+'(source:BollywoodHungama)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
+    try {
     let zeeRes = await axios.get(`https://zeenews.india.com/rss/entertainment-news.xml`);
     let zeeHtml = zeeRes.data;
     const zee$ = cheerio.load(zeeHtml, {xmlMode:true});
@@ -416,7 +468,11 @@ async function loadEntertainment() {
         let obj = {'source': 'ZeeNews', 'title': title+'(source:ZeeNews)', 'urlToImage': `https://english.cdn.zeenews.com/images/logo/zeenewslogo_nav.png`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
+    try {
     let htRes = await axios.get(`https://www.hindustantimes.com/feeds/rss/entertainment/rssfeed.xml`);
     let htHtml = htRes.data;
     const ht$ = cheerio.load(htHtml, {xmlMode:true});
@@ -435,7 +491,10 @@ async function loadEntertainment() {
         let obj = {'source': 'HindustanTimes', 'title': title+'(source:HindustanTimes)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
     list.sort((a,b)=> {
         let d1 = Date.parse(a.publishedAt);
         let d2 = Date.parse(b.publishedAt);
@@ -468,7 +527,7 @@ async function loadHealth() {
         let obj = {'source': 'WebMD', 'title': title+'(source:WebMD)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    try {
     let mxRes = await axios.get(`https://medicalxpress.com/rss-feed/`);
     let mxHtml = mxRes.data;
     const mx$ = cheerio.load(mxHtml, {xmlMode:true});
@@ -487,7 +546,11 @@ async function loadHealth() {
         let obj = {'source': 'Medical Xpress', 'title': title+'(source:Medical Xpress)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
+    try {
     let etRes = await axios.get(`https://health.economictimes.indiatimes.com/rss/topstories`);
     let etHtml = etRes.data;
     const et$ = cheerio.load(etHtml, {xmlMode:true});
@@ -500,7 +563,11 @@ async function loadHealth() {
         let obj = {'source': 'ET', 'title': title+'(source:ET)', 'urlToImage': `${imageUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
+    try {
     let whoRes = await axios.get(`https://www.who.int/rss-feeds/news-english.xml`);
     let whoHtml = whoRes.data;
     const who$ = cheerio.load(whoHtml, {xmlMode:true});
@@ -513,7 +580,10 @@ async function loadHealth() {
         let obj = {'source': 'WHO', 'title': title+'(source:WHO)', 'urlToImage': `${imageUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
     list.sort((a,b)=> {
         let d1 = Date.parse(a.publishedAt);
         let d2 = Date.parse(b.publishedAt);
@@ -541,7 +611,7 @@ async function loadSci() {
         let obj = {'source': 'ScienceDaily', 'title': title+'(source:ScienceDaily)', 'urlToImage': `${imageUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    try {
     let wiRes = await axios.get(`https://www.wired.com/category/science/feed`);
     let wiHtml = wiRes.data;
     const wi$ = cheerio.load(wiHtml, {xmlMode:true});
@@ -560,7 +630,11 @@ async function loadSci() {
         let obj = {'source': 'Wired', 'title': title+'(source:Wired)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
+    try {
     let nsRes = await axios.get(`https://www.newscientist.com/feed/home/?cmpid=RSS%7CNSNS-Home`);
     let nsHtml = nsRes.data;
     const ns$ = cheerio.load(nsHtml, {xmlMode:true});
@@ -579,7 +653,10 @@ async function loadSci() {
         let obj = {'source': 'New Scientist', 'title': title+'(source:New Scientist)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
     // let mitRes = await axios.get(`https://news.mit.edu/rss/feed`);
     // let mitHtml = mitRes.data;
     // const mit$ = cheerio.load(mitHtml, {xmlMode:true});
@@ -631,7 +708,7 @@ async function loadTech() {
         let obj = {'source': 'MIT', 'title': title+'(source:MIT)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    try {
     let vergeRes = await axios.get(`https://www.theverge.com/rss/frontpage`);
     let vergeHtml = vergeRes.data;
     const verge$ = cheerio.load(vergeHtml, {xmlMode:true});
@@ -643,7 +720,11 @@ async function loadTech() {
         let obj = {'source': 'The Verge', 'title': title+'(source:The Verge)', 'urlToImage': `https://logowik.com/content/uploads/images/the-verge5796.jpg`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
+    try {
     let wiredRes = await axios.get(`https://www.wired.com/feed/rss`);
     let wiredHtml = wiredRes.data;
     const wired$ = cheerio.load(wiredHtml, {xmlMode:true});
@@ -662,7 +743,10 @@ async function loadTech() {
         let obj = {'source': 'Wired', 'title': title+'(source:Wired)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-    
+    }
+    catch(err) {
+        console.error(err);
+    }
     list.sort((a,b)=> {
         let d1 = Date.parse(a.publishedAt);
         let d2 = Date.parse(b.publishedAt);
@@ -696,7 +780,7 @@ async function loadSport() {
         let obj = {'source': 'NDTV', 'title': title+'(source:NDTV)', 'urlToImage': `https://logowik.com/content/uploads/images/ndtv9182.logowik.com.webp`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    try {
     let espnRes = await axios.get(`https://www.espn.com/espn/rss/news`);
     let espnHtml = espnRes.data;
     const espn$ = cheerio.load(espnHtml, {xmlMode:true});
@@ -712,7 +796,11 @@ async function loadSport() {
         let obj = {'source': 'ESPN', 'title': title+'(source:ESPN)', 'urlToImage': `${imageUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
+    try {
     let toiRes = await axios.get(`https://timesofindia.indiatimes.com/rssfeeds/4719148.cms`);
     let toiHtml = toiRes.data;
     const toi$ = cheerio.load(toiHtml, {xmlMode:true});
@@ -728,7 +816,10 @@ async function loadSport() {
         let obj = {'source': 'TOI', 'title': title+'(source:TOI)', 'urlToImage': `${imageUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
     list.sort((a,b)=> {
         let d1 = Date.parse(a.publishedAt);
         let d2 = Date.parse(b.publishedAt);
@@ -760,7 +851,7 @@ async function loadOffbeat() {
         let obj = {'source': 'NDTV', 'title': title+'(source:NDTV)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    try {
     let abpRes = await axios.get(`https://news.abplive.com/offbeat/feed`);
     let abpHtml = abpRes.data;
     const abp$ = cheerio.load(abpHtml, {xmlMode:true});
@@ -779,7 +870,10 @@ async function loadOffbeat() {
         let obj = {'source': 'ABP', 'title': title+'(source:ABP)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-
+    }
+    catch(err) {
+        console.error(err);
+    }
     list.sort((a,b)=> {
         let d1 = Date.parse(a.publishedAt);
         let d2 = Date.parse(b.publishedAt);
