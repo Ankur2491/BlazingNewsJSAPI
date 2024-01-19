@@ -46,8 +46,9 @@ var client = redis.createClient({
     ,password:"AFahzbIs3wTxs0VMPnvTqkuqyoZOWXwV"
   });
 async function loadWorld() {
-    let res = await axios.get(`http://feeds.bbci.co.uk/news/world/rss.xml`);
     let list = [];
+    try {
+    let res = await axios.get(`http://feeds.bbci.co.uk/news/world/rss.xml`);
     let html = res.data;
     const $ = cheerio.load(html,{xmlMode:true});
     $('item').each((index, element)=>{
@@ -58,12 +59,15 @@ async function loadWorld() {
         let obj = {'source': 'BBC', 'title': title+'(source:BBC)', 'urlToImage': `https://news.bbcimg.co.uk/nol/shared/img/bbc_news_120x60.gif`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
-    
+    }
+    catch(err) {
+        console.error(err);
+    }
     try{
     let nyRes = await axios.get(`https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/section/world/rss.xml`);
     let nyHtml = nyRes.data;
-    const ny$ = cheerio.load(nyHtml, {xmlMode:true});
-    ny$('item').each((index, element)=>{
+    const $ = cheerio.load(nyHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -78,8 +82,8 @@ async function loadWorld() {
     try{
     let alRes = await axios.get(`https://www.aljazeera.com/xml/rss/all.xml`);
     let alHtml = alRes.data;
-    const al$ = cheerio.load(alHtml, {xmlMode:true});
-    al$('item').each((index, element)=>{
+    const $ = cheerio.load(alHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -94,8 +98,8 @@ async function loadWorld() {
     try{
     let n18Res = await axios.get(`https://www.news18.com/rss/world.xml`);
     let n18Html = n18Res.data;
-    const n18$ = cheerio.load(n18Html, {xmlMode:true});
-    n18$('item').each((index, element)=>{
+    const $ = cheerio.load(n18Html, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -117,8 +121,8 @@ async function loadWorld() {
     try {
     let ndRes = await axios.get(`http://feeds.feedburner.com/ndtvnews-world-news`);
     let ndHtml = ndRes.data;
-    const nd$ = cheerio.load(ndHtml, {xmlMode:true});
-    nd$('item').each((index, element)=>{
+    const $ = cheerio.load(ndHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -154,6 +158,7 @@ async function loadWorld() {
 
 async function loadIndia() {
     let list = [];
+    try {
     let ndRes = await axios.get(`http://feeds.feedburner.com/ndtvnews-india-news`);
     let ndHtml = ndRes.data;
     const $ = cheerio.load(ndHtml, {xmlMode:true});
@@ -172,12 +177,16 @@ async function loadIndia() {
         let obj = {'source': 'NDTV', 'title': title+'(source:NDTV)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
+    }
+    catch(err) {
+    console.error(err);
+    }
 
     try {
     let zeeRes = await axios.get(`https://zeenews.india.com/rss/india-national-news.xml`);
     let zeeHtml = zeeRes.data;
-    const zee$ = cheerio.load(zeeHtml, {xmlMode:true});
-    zee$('item').each((index, element)=>{
+    const $ = cheerio.load(zeeHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubdate').text();
@@ -193,8 +202,8 @@ async function loadIndia() {
     try {
     let toiRes = await axios.get(`https://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms`);
     let toiHtml = toiRes.data;
-    const toi$ = cheerio.load(toiHtml, {xmlMode:true});
-    toi$('item').each((index, element)=>{
+    const $ = cheerio.load(toiHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = ``;
         const publishedAt = $(element).children('pubDate').text();
@@ -213,8 +222,8 @@ async function loadIndia() {
     try {
     let hinduRes = await axios.get(`https://www.thehindu.com/news/national/feeder/default.rss`);
     let hinduHtml = hinduRes.data;
-    const hindu$ = cheerio.load(hinduHtml, {xmlMode:true});
-    hindu$('item').each((index, element)=>{
+    const $ = cheerio.load(hinduHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -229,8 +238,8 @@ async function loadIndia() {
     try {
     let dnaRes = await axios.get(`https://www.dnaindia.com/feeds/india.xml`);
     let dnaHtml = dnaRes.data;
-    const dna$ = cheerio.load(dnaHtml, {xmlMode:true});
-    dna$('item').each((index, element)=>{
+    const $ = cheerio.load(dnaHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -249,8 +258,8 @@ async function loadIndia() {
     try {
     let htRes = await axios.get(`https://www.hindustantimes.com/feeds/rss/india-news/rssfeed.xml`);
     let htHtml = htRes.data;
-    const ht$ = cheerio.load(htHtml, {xmlMode:true});
-    ht$('item').each((index, element)=>{
+    const $ = cheerio.load(htHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -273,8 +282,8 @@ async function loadIndia() {
     try {
     let news18Res = await axios.get(`https://www.news18.com/commonfeeds/v1/eng/rss/india.xml`);
     let news18Html = news18Res.data;
-    const news18$ = cheerio.load(news18Html, {xmlMode:true});
-    news18$('item').each((index, element)=>{
+    const $ = cheerio.load(news18Html, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -296,8 +305,8 @@ async function loadIndia() {
     try {
     let fpRes = await axios.get(`https://www.firstpost.com/rss/india.xml`);
     let fpHtml = fpRes.data;
-    const fp$ = cheerio.load(fpHtml, {xmlMode:true});
-    fp$('item').each((index, element)=>{
+    const $ = cheerio.load(fpHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -329,6 +338,7 @@ async function loadIndia() {
 }
 async function loadBusiness() {
     let list = [];
+    try {
     let blRes = await axios.get(`https://www.thehindubusinessline.com/news/national/feeder/default.rss`);
     let blHtml = blRes.data;
     const $ = cheerio.load(blHtml, {xmlMode:true});
@@ -347,11 +357,15 @@ async function loadBusiness() {
         let obj = {'source': 'BusinessLine', 'title': title+'(source:BusinessLine)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
+    }
+    catch(err) {
+        console.error(err);
+    }
     try{
     let etRes = await axios.get(`https://cfo.economictimes.indiatimes.com/rss/topstories`);
     let etHtml = etRes.data;
-    const et$ = cheerio.load(etHtml, {xmlMode:true});
-    et$('item').each((index, element)=>{
+    const $ = cheerio.load(etHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -367,8 +381,8 @@ async function loadBusiness() {
     try {
     let zeeRes = await axios.get(`https://www.zeebiz.com/india.xml`);
     let zeeHtml = zeeRes.data;
-    const zee$ = cheerio.load(zeeHtml, {xmlMode:true});
-    zee$('item').each((index, element)=>{
+    const $ = cheerio.load(zeeHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -395,6 +409,7 @@ async function loadBusiness() {
 
 async function loadEntertainment() {
     let list = [];
+    try {
     let etRes = await axios.get(`https://www.etonline.com/news/rss`);
     let etHtml = etRes.data;
     const $ = cheerio.load(etHtml, {xmlMode:true});
@@ -413,11 +428,15 @@ async function loadEntertainment() {
         let obj = {'source': 'EntertainmentTonight', 'title': title+'(source:EntertainmentTonight)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
+    }
+    catch(err) {
+        console.error(err);
+    }
     try {
     let toiRes = await axios.get(`https://timesofindia.indiatimes.com/rssfeeds/1081479906.cms`);
     let toiHtml = toiRes.data;
-    const toi$ = cheerio.load(toiHtml, {xmlMode:true});
-    toi$('item').each((index, element)=>{
+    const $ = cheerio.load(toiHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = ``;
         const publishedAt = $(element).children('pubDate').text();
@@ -436,8 +455,8 @@ async function loadEntertainment() {
     try {
     let bhRes = await axios.get(`https://www.bollywoodhungama.com/rss/news.xml`);
     let bhHtml = bhRes.data;
-    const bh$ = cheerio.load(bhHtml, {xmlMode:true});
-    bh$('item').each((index, element)=>{
+    const $ = cheerio.load(bhHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = ``;
         const publishedAt = $(element).children('pubDate').text();
@@ -459,8 +478,8 @@ async function loadEntertainment() {
     try {
     let zeeRes = await axios.get(`https://zeenews.india.com/rss/entertainment-news.xml`);
     let zeeHtml = zeeRes.data;
-    const zee$ = cheerio.load(zeeHtml, {xmlMode:true});
-    zee$('item').each((index, element)=>{
+    const $ = cheerio.load(zeeHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -475,8 +494,8 @@ async function loadEntertainment() {
     try {
     let htRes = await axios.get(`https://www.hindustantimes.com/feeds/rss/entertainment/rssfeed.xml`);
     let htHtml = htRes.data;
-    const ht$ = cheerio.load(htHtml, {xmlMode:true});
-    ht$('item').each((index, element)=>{
+    const $ = cheerio.load(htHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -509,6 +528,7 @@ async function loadEntertainment() {
 
 async function loadHealth() {
     let list = [];
+    try {
     let webMdRes = await axios.get(`https://rssfeeds.webmd.com/rss/rss.aspx?RSSSource=RSS_PUBLIC`);
     let webMdHtml = webMdRes.data;
     const $ = cheerio.load(webMdHtml, {xmlMode:true});
@@ -527,11 +547,15 @@ async function loadHealth() {
         let obj = {'source': 'WebMD', 'title': title+'(source:WebMD)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
+    }
+    catch(err) {
+        console.error(err);
+    }
     try {
     let mxRes = await axios.get(`https://medicalxpress.com/rss-feed/`);
     let mxHtml = mxRes.data;
-    const mx$ = cheerio.load(mxHtml, {xmlMode:true});
-    mx$('item').each((index, element)=>{
+    const $ = cheerio.load(mxHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -553,8 +577,8 @@ async function loadHealth() {
     try {
     let etRes = await axios.get(`https://health.economictimes.indiatimes.com/rss/topstories`);
     let etHtml = etRes.data;
-    const et$ = cheerio.load(etHtml, {xmlMode:true});
-    et$('item').each((index, element)=>{
+    const $ = cheerio.load(etHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -570,8 +594,8 @@ async function loadHealth() {
     try {
     let whoRes = await axios.get(`https://www.who.int/rss-feeds/news-english.xml`);
     let whoHtml = whoRes.data;
-    const who$ = cheerio.load(whoHtml, {xmlMode:true});
-    who$('item').each((index, element)=>{
+    const $ = cheerio.load(whoHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = ``;
         const publishedAt = $(element).children('pubDate').text();
@@ -599,6 +623,7 @@ async function loadHealth() {
 
 async function loadSci() {
     let list = [];
+    try {
     let sdRes = await axios.get(`https://www.sciencedaily.com/rss/all.xml`);
     let sdHtml = sdRes.data;
     const $ = cheerio.load(sdHtml, {xmlMode:true});
@@ -611,11 +636,15 @@ async function loadSci() {
         let obj = {'source': 'ScienceDaily', 'title': title+'(source:ScienceDaily)', 'urlToImage': `${imageUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
+    }
+    catch(err) {
+        console.error(err);
+    }
     try {
     let wiRes = await axios.get(`https://www.wired.com/category/science/feed`);
     let wiHtml = wiRes.data;
-    const wi$ = cheerio.load(wiHtml, {xmlMode:true});
-    wi$('item').each((index, element)=>{
+    const $ = cheerio.load(wiHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -637,8 +666,8 @@ async function loadSci() {
     try {
     let nsRes = await axios.get(`https://www.newscientist.com/feed/home/?cmpid=RSS%7CNSNS-Home`);
     let nsHtml = nsRes.data;
-    const ns$ = cheerio.load(nsHtml, {xmlMode:true});
-    ns$('item').each((index, element)=>{
+    const $ = cheerio.load(nsHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -690,6 +719,7 @@ async function loadSci() {
 
 async function loadTech() {
     let list = [];
+    try{
     let mitRes = await axios.get(`https://news.mit.edu/rss/feed`);
     let mitHtml = mitRes.data;
     const $ = cheerio.load(mitHtml, {xmlMode:true});
@@ -708,11 +738,15 @@ async function loadTech() {
         let obj = {'source': 'MIT', 'title': title+'(source:MIT)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
+    }
+    catch(err) {
+        console.error(err);
+    }
     try {
     let vergeRes = await axios.get(`https://www.theverge.com/rss/frontpage`);
     let vergeHtml = vergeRes.data;
-    const verge$ = cheerio.load(vergeHtml, {xmlMode:true});
-    verge$('entry').each((index, element)=>{
+    const $ = cheerio.load(vergeHtml, {xmlMode:true});
+    $('entry').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = ``
         const publishedAt = $(element).children('published').text();
@@ -727,8 +761,8 @@ async function loadTech() {
     try {
     let wiredRes = await axios.get(`https://www.wired.com/feed/rss`);
     let wiredHtml = wiredRes.data;
-    const wired$ = cheerio.load(wiredHtml, {xmlMode:true});
-    wired$('item').each((index, element)=>{
+    const $ = cheerio.load(wiredHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -762,6 +796,7 @@ async function loadTech() {
 
 async function loadSport() {
     let list = [];
+    try {
     let ndtvRes = await axios.get(`https://sports.ndtv.com/rss/all`);
     let ndtvHtml = ndtvRes.data;
     const $ = cheerio.load(ndtvHtml, {xmlMode:true});
@@ -780,11 +815,15 @@ async function loadSport() {
         let obj = {'source': 'NDTV', 'title': title+'(source:NDTV)', 'urlToImage': `https://logowik.com/content/uploads/images/ndtv9182.logowik.com.webp`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
+    }
+    catch(err) {
+        console.error(err);
+    }
     try {
     let espnRes = await axios.get(`https://www.espn.com/espn/rss/news`);
     let espnHtml = espnRes.data;
-    const espn$ = cheerio.load(espnHtml, {xmlMode:true});
-    espn$('item').each((index, element)=>{
+    const $ = cheerio.load(espnHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = $(element).children('description').text();
         const publishedAt = $(element).children('pubDate').text();
@@ -803,8 +842,8 @@ async function loadSport() {
     try {
     let toiRes = await axios.get(`https://timesofindia.indiatimes.com/rssfeeds/4719148.cms`);
     let toiHtml = toiRes.data;
-    const toi$ = cheerio.load(toiHtml, {xmlMode:true});
-    toi$('item').each((index, element)=>{
+    const $ = cheerio.load(toiHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = ``;
         const publishedAt = $(element).children('pubDate').text();
@@ -833,6 +872,7 @@ async function loadSport() {
 }
 async function loadOffbeat() {
     let list = [];
+    try {
     let ndtvRes = await axios.get(`http://feeds.feedburner.com/ndtvnews-offbeat-news`);
     let ndtvHtml = ndtvRes.data;
     const $ = cheerio.load(ndtvHtml, {xmlMode:true});
@@ -851,11 +891,15 @@ async function loadOffbeat() {
         let obj = {'source': 'NDTV', 'title': title+'(source:NDTV)', 'urlToImage': `${imgUrl}`, 'url': link, 'publishedAt': publishedAt, 'description': desc};
         list.push(obj);
     })
+    }
+    catch(err) {
+        console.error(err);
+    }
     try {
     let abpRes = await axios.get(`https://news.abplive.com/offbeat/feed`);
     let abpHtml = abpRes.data;
-    const abp$ = cheerio.load(abpHtml, {xmlMode:true});
-    abp$('item').each((index, element)=>{
+    const $ = cheerio.load(abpHtml, {xmlMode:true});
+    $('item').each((index, element)=>{
         const title = $(element).children('title').text();
         const desc = ``;
         const publishedAt = $(element).children('pubDate').text();
